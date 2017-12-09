@@ -6,28 +6,32 @@ import (
 )
 
 type node struct {
-	value int
+	value uint64
 	left  *node
 	right *node
 }
 
-const input = 13195
+var input uint64
 
-var isPrime = [input + 1]bool{}
+var isPrime []bool
 
 func main() {
+	input = 600851475143
+	size := math.MaxInt32 // because of overflow bug in make()
+	isPrime = make([]bool, size)
 	computePrimes()
 	root := factorTree(input)
 	printTree(root, 0)
 }
 
 func computePrimes() {
-	var x, y, n int
-	nsqrt := math.Sqrt(input)
-	for x = 1; float64(x) <= nsqrt; x++ {
-		for y = 1; float64(y) <= nsqrt; y++ {
+	var x, y, n uint64
+	sqrt := math.Sqrt(float64(input))
+	for x = 1; float64(x) <= sqrt; x++ {
+		for y = 1; float64(y) <= sqrt; y++ {
 			n = 4*(x*x) + y*y
 			if n <= input && (n%12 == 1 || n%12 == 5) {
+				fmt.Println(n)
 				isPrime[n] = !isPrime[n]
 			}
 			n = 3*(x*x) + y*y
@@ -43,7 +47,7 @@ func computePrimes() {
 	isPrime[1] = true
 	isPrime[2] = true
 	isPrime[3] = true
-	for n = 5; float64(n) <= nsqrt; n++ {
+	for n = 5; float64(n) <= sqrt; n++ {
 		if isPrime[n] {
 			for y = n * n; y < input; y += n * n {
 				isPrime[y] = false
@@ -52,11 +56,11 @@ func computePrimes() {
 	}
 }
 
-func getDivisor(dividend int) int {
-	divisor := 1
+func getDivisor(dividend uint64) uint64 {
+	var divisor uint64 = 1
 	sqrt := math.Floor(math.Sqrt(float64(dividend)))
 	//fmt.Printf("%f is %d\n", sqrt, int(sqrt))
-	for i := int(sqrt); i > 0; i-- {
+	for i := uint64(sqrt); i > 0; i-- {
 		if isPrime[i] && dividend%i == 0 {
 			divisor = i
 			break
@@ -65,7 +69,7 @@ func getDivisor(dividend int) int {
 	return divisor
 }
 
-func factorTree(i int) *node {
+func factorTree(i uint64) *node {
 	//fmt.Println("factorTree: ", i)
 	var n *node
 	if isPrime[i] {
