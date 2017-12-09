@@ -19,8 +19,6 @@ func main() {
 	computePrimes()
 	root := factorTree(input)
 	printTree(root, 0)
-	/*fmt.Println(getDivisor(12))
-	fmt.Println(getDivisor(2639))*/
 }
 
 func computePrimes() {
@@ -52,10 +50,6 @@ func computePrimes() {
 			}
 		}
 	}
-	/*fmt.Println(isPrime)
-	for i := input - 20; i < input; i++ {
-		fmt.Printf("%d %v\n", i, isPrime[i])
-	}*/
 }
 
 func getDivisor(dividend int) int {
@@ -63,7 +57,6 @@ func getDivisor(dividend int) int {
 	sqrt := math.Floor(math.Sqrt(float64(dividend)))
 	//fmt.Printf("%f is %d\n", sqrt, int(sqrt))
 	for i := int(sqrt); i > 0; i-- {
-		//fmt.Printf("%d is %v\n", i, isPrime[i])
 		if isPrime[i] && dividend%i == 0 {
 			divisor = i
 			break
@@ -73,7 +66,7 @@ func getDivisor(dividend int) int {
 }
 
 func factorTree(i int) *node {
-	fmt.Println("factorTree: ", i)
+	//fmt.Println("factorTree: ", i)
 	var n *node
 	if isPrime[i] {
 		// prime
@@ -81,7 +74,7 @@ func factorTree(i int) *node {
 	} else {
 		leftDiv := getDivisor(i)
 		rightDiv := i / leftDiv
-		fmt.Printf("leftDiv %d, rightDiv %d\n", leftDiv, rightDiv)
+		//fmt.Printf("leftDiv %d, rightDiv %d\n", leftDiv, rightDiv)
 		lNode := factorTree(leftDiv)
 		rNode := factorTree(rightDiv)
 		n = &node{value: i, left: lNode, right: rNode}
