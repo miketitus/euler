@@ -5,17 +5,17 @@ import (
 )
 
 func main() {
-	var length uint64 = 16
+	var length float64 = 20
 	steps := length * 2
 	fs := factorial(steps)
 	fl := factorial(length)
-	fls := fl * fl // this overflows :(
-	fmt.Printf("fs = %d, fl = %d, fls = %d\n", fs, fl, fls)
+	fls := fl * fl
+	fmt.Printf("fs = %.0f, fl = %.0f, fls = %.0f\n", fs, fl, fls)
 	routes := fs / fls
-	fmt.Printf("steps = %d, length = %d, routes = %d\n", steps, length, routes)
+	fmt.Printf("steps = %.0f, length = %.0f, routes = %.0f\n", steps, length, routes)
 }
 
-func factorial(i uint64) uint64 {
+func factorial(i float64) float64 {
 	if i == 1 {
 		return 1
 	}
