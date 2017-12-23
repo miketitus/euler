@@ -2,26 +2,21 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
-	sum := 0.0
-	input := 2.0
-	power := input
-	for i := 2; i <= 50; i++ {
-		if power > 1 {
-			power *= (input / 10.0)
-		} else {
-			power *= input
-		}
-		fmt.Println(power)
+	for i := 1.0; i < 16.0; i++ {
+		fmt.Println(sumDigits(math.Pow(2, i)))
 	}
-	/*n := math.Pow(2, 15)
-	fmt.Println(n)
+}
+
+func sumDigits(n float64) float64 {
+	sum := 0.0
 	for n >= 1 {
-		r := int(n) % 10
+		r := float64(int(n) % 10)
 		sum += r
 		n = n / 10
-	}*/
-	fmt.Println(sum)
+	}
+	return sum
 }
